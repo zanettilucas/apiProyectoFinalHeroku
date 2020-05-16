@@ -1,0 +1,19 @@
+{
+   "conversation":{
+      "skill":"discover",
+      "memory":{
+      	"tv": "movie",
+         "genre":{
+            "value":"Crime"
+         },
+         "nationality":{
+            "short":"en"
+         },
+         "interval":{
+            "begin":"01-01-2016",
+            "end":"01-01-2020"
+         },
+         "datetime": "2010"
+      }
+   }
+}
