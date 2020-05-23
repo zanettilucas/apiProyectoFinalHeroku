@@ -108,7 +108,7 @@ const movieDbGetRecommendations = (id, kind, params = {}) => {
 
 const apiResultToCarousselle = (results, kind) => {
   const cards = results.shuffle()
-    .slice(0, 10)
+    .slice(0, 5)
     .map(e => ({
       title: e.title || e.name,
       subtitle: e.overview,
@@ -133,6 +133,7 @@ const apiResultToCarousselle = (results, kind) => {
   const lastMessage = [
     'Espero que te guste lo que encontré para vos',
     'Esto es lo que encontre',
+    'Espero que te guste!'
   ]
 
   return [
