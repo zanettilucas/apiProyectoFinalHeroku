@@ -54,8 +54,8 @@ const findMovieSimilarTo = (movie) => {
         return [{
           type: 'quickReplies',
           content: {
-            title: 'Sorry, but I could not find any results for your request :(',
-            buttons: [{ title: 'Start over', value: 'Start over' }],
+            title: 'Perdon, pero no pude encontrar ningún resultado para tu solicitud :(',
+            buttons: [{ title: 'Volver a empezar', value: 'volver a empezar' }],
           },
         }]
 
@@ -72,8 +72,8 @@ const findShowSimilarTo = (movie) => {
         return [{
           type: 'quickReplies',
           content: {
-            title: 'Sorry, but I could not find any results for your request :(',
-            buttons: [{ title: 'Start over', value: 'Start over' }],
+            title: 'Perdon, pero no pude encontrar ningún resultado para tu solicitud :(',
+            buttons: [{ title: 'Volver a empezar', value: 'volver a empezar' }],
           },
         }]
 
@@ -116,7 +116,7 @@ const apiResultToCarousselle = (results, kind) => {
       buttons: [{
         type: 'web_url',
         value: `https://www.themoviedb.org/${kind}/${e.id}`,
-        title: 'View More',
+        title: 'Ver Mas',
       }],
     }))
 
@@ -124,14 +124,14 @@ const apiResultToCarousselle = (results, kind) => {
     return [{
       type: 'quickReplies',
       content: {
-        title: 'Sorry, but I could not find any results for your request :(',
-        buttons: [{ title: 'Start over', value: 'Start over' }],
+        title: 'Perdon, pero no pude encontrar ningún resultado para tu solicitud :(',
+        buttons: [{ title: 'Volver a empezar', value: 'volver a empezar' }],
       },
     }]
   }
 
   const lastMessage = [
-    'Espero que te guste lo que encontré para ti',
+    'Espero que te guste lo que encontré para vos',
     'Esto es lo que encontre',
   ]
 
