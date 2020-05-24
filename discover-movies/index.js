@@ -55,12 +55,12 @@ function loadMovieRoute(app) {
         if(date.raw.length == 4 || date.raw.toLowerCase() == "this year" || date.raw.toLowerCase() == "este año") {
           year = date;
         } else { 
-          if(!isNaN(json.datetime.raw.slice(0,4))) {
-            desde = json.datetime.raw.slice(0,4)
+          if(!isNaN(date.raw.slice(0,4))) {
+            desde = date.raw.slice(0,4)
            }
 
-          if(!isNaN(json.datetime.raw.slice(7,11))) {
-            hasta = json.datetime.raw.slice(7,11)
+          if(!isNaN(date.raw.slice(7,11))) {
+            hasta = date.raw.slice(7,11)
           }
 
           interval = {
