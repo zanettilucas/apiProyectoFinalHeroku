@@ -88,6 +88,8 @@ const movieDbSearch = (kind, params = {}) => {
     params: Object.assign({}, {
       api_key: config.MOVIEDB_TOKEN,
       include_adult: false,
+      sort_by: 'popularity.desc',
+      language: 'es',
       page: 1,
     }, params),
   })
@@ -99,6 +101,8 @@ const movieDbGetRecommendations = (id, kind, params = {}) => {
     [1, 2, 3].map(page => axios.get(`https://api.themoviedb.org/3/${kind}/${id}/recommendations`, {
       params: Object.assign({}, {
         api_key: config.MOVIEDB_TOKEN,
+        sort_by: 'popularity.desc',
+        language: 'es',
         page,
       }, params),
     }))

@@ -18,7 +18,7 @@ function loadMovieRoute(app) {
     console.log('======================================')
 
     if (conversation.skill === 'anything') {
-      //Empecemos una búsqueda sin criterios.
+      //búsqueda sin criterios.
       return movieApi.discoverMovie({})
         .then(function(carouselle) {
           res.json({
