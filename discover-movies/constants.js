@@ -14,15 +14,16 @@ const movieGenres = [
   { id: 10402, name: 'Musical' },
   { id: 9648, name: 'Misterio' },
   { id: 10749, name: 'Romance' },
-  { id: 10749, name: 'Romantic' },
-  { id: 878, name: 'Science Fiction' },
-  { id: 878, name: 'Sci-Fi' },
+  { id: 10749, name: 'Romantica' },
+  { id: 878, name: 'ciencia ficcion' },
+  { id: 878, name: 'ciencia ficción' },
   { id: 878, name: 'Sci Fi' },
   { id: 878, name: 'ciencia-ficcion' },
   { id: 10770, name: 'TV Movie' },
   { id: 53, name: 'Suspenso' },
   { id: 10752, name: 'Belica' },
   { id: 37, name: 'Western' },
+  { id: 37, name: 'Vaqueros' }
 ];
 
 function getGenreId(genre) {
