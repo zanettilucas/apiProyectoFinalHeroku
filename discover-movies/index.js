@@ -28,8 +28,8 @@ function loadMovieRoute(app) {
         });
     } else if (conversation.skill === 'discover') {
       //Obtener variables 
-      const raw = conversation.memory.recording.raw;
-      const kind = raw == 'pelicula' ? 'movie' : 'tv';
+      const type = conversation.memory.recording.type;
+      const kind = type == 'pelicula' ? 'movie' : 'tv';
 
       const genre = conversation.memory['genre'];
       const genreId = constants.getGenreId(genre.value);
@@ -44,7 +44,7 @@ function loadMovieRoute(app) {
       const dateInterval = conversation.memory['interval']
       const date = conversation.memory['datetime']
       let year = null
-      let interval = null
+      let interval;
       let desde = null 
       let hasta = null
 
