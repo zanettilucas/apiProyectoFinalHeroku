@@ -11,8 +11,6 @@ function loadMovieRoute(app) {
     const nlp = req.body.nlp;
     console.log('======================================')
     console.log(`Skill: ${conversation.skill}`)
-    console.log('======================================')
-
     console.log('==================JSON REQUEST====================')
     console.log(conversation)
     console.log('======================================')
@@ -30,9 +28,8 @@ function loadMovieRoute(app) {
         });
     } else if (conversation.skill === 'discover') {
       //Obtener variables 
-      const movie = conversation.memory['movie'];
-      const tv = conversation.memory['tv'];
-      const kind = tv ? 'tv' : 'movie';
+      const raw = conversation.memory.recording.raw;
+      const kind = raw == 'pelicula' ? 'movie' : 'tv';
 
       const genre = conversation.memory['genre'];
       const genreId = constants.getGenreId(genre.value);
@@ -53,7 +50,12 @@ function loadMovieRoute(app) {
 
       if (date) {
         if(date.raw.length == 4 || date.raw.toLowerCase() == "this year" || date.raw.toLowerCase() == "este año") {
+          
+          if(date.raw.toLowerCase() == "este año"){
+            date.raw = 'This year';
+          }
           year = date;
+
         } else { 
           if(!isNaN(date.raw.slice(0,4))) {
             desde = date.raw.slice(0,4)
