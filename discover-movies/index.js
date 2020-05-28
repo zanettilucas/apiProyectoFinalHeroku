@@ -50,7 +50,9 @@ function loadMovieRoute(app) {
 
       if (date) {
         if(date.raw.length == 4 || date.raw.toLowerCase() == "este año") {
-          year = date;
+          if(!isNaN(date.iso.slice(0,4))) {
+            year = date.iso.slice(0,4)
+           }
         } else { 
           if(!isNaN(date.raw.slice(0,4))) {
             desde = date.raw.slice(0,4)
