@@ -44,18 +44,13 @@ function loadMovieRoute(app) {
       const dateInterval = conversation.memory['interval']
       const date = conversation.memory['datetime']
       let year = null
-      let interval;
+      let interval = null
       let desde = null 
       let hasta = null
 
       if (date) {
-        if(date.raw.length == 4 || date.raw.toLowerCase() == "this year" || date.raw.toLowerCase() == "este año") {
-          
-          if(date.raw.toLowerCase() == "este año"){
-            date.raw = 'This year';
-          }
+        if(date.raw.length == 4 || date.raw.toLowerCase() == "este año") {
           year = date;
-
         } else { 
           if(!isNaN(date.raw.slice(0,4))) {
             desde = date.raw.slice(0,4)
