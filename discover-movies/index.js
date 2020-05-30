@@ -105,7 +105,7 @@ function loadMovieRoute(app) {
     } else if (conversation.skill === 'such-as' && nlp.entities['movie-name']) {
       if (nlp.entities.tv) {
         console.log('======================================')
-        console.log('Such as in tv')
+        console.log('Serie')
         console.log('======================================')
         return movieApi.findShowSimilarTo(nlp.entities['movie-name'][0].value)
           .then(function(carouselle) {
@@ -118,7 +118,7 @@ function loadMovieRoute(app) {
           });
       }
       console.log('======================================')
-      console.log('Such as in movie')
+      console.log('Pelicula')
       console.log('======================================')
       return movieApi.findMovieSimilarTo(nlp.entities['movie-name'][0].value)
         .then(function(carouselle) {
@@ -131,7 +131,7 @@ function loadMovieRoute(app) {
       });
     } else {
       return res.json({
-        replies: [{type: 'text', content: 'Can not help you with this right now'}],
+        replies: [{type: 'text', content: 'No puedo ayudarte con esto :/'}],
       });
     }
   });
