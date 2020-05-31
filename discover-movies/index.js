@@ -2,7 +2,16 @@ const config = require('../config');
 const movieApi = require('./movieApi.js');
 const constants = require('./constants');
 const moment = require('moment');
+const admin = require("firebase-admin");
 
+var serviceAccount = require(config.FIREBASE_PATH);
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://movieadvice-43292.firebaseio.com"
+});
+
+const db = admin.database();
 
 function loadMovieRoute(app) {
   app.post('/discover-movies', function(req, res) {
@@ -11,14 +20,19 @@ function loadMovieRoute(app) {
     const nlp = req.body.nlp;
     console.log('======================================')
     console.log(`Skill: ${conversation.skill}`)
+    console.log('======================================')
+    console.log(`userId: ${conversation.memory.userId}`)
     console.log('==================JSON REQUEST====================')
     console.log(conversation)
     console.log('======================================')
+
+    const userId = conversation.memory.userId
 
     if (conversation.skill === 'anything') {
       //búsqueda sin criterios.
       return movieApi.discoverMovie({})
         .then(function(carouselle) {
+          db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({carouselle})
           res.json({
             replies: carouselle,
           });
@@ -82,6 +96,7 @@ function loadMovieRoute(app) {
         console.log('======================================')
         return movieApi.discoverMovie({ genreId, isoCode, year, interval })
           .then(function(carouselle) {
+            db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({carouselle})
             res.json({
               replies: carouselle,
             });
@@ -95,6 +110,7 @@ function loadMovieRoute(app) {
       console.log('======================================')
       return movieApi.discoverTv({ genreId, isoCode, year, interval })
         .then(function(carouselle) {
+          db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({carouselle})
           res.json({
             replies: carouselle,
           });
@@ -109,6 +125,7 @@ function loadMovieRoute(app) {
         console.log('======================================')
         return movieApi.findShowSimilarTo(nlp.entities['movie-name'][0].value)
           .then(function(carouselle) {
+            db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({carouselle})
             res.json({
               replies: carouselle,
             });
@@ -122,6 +139,7 @@ function loadMovieRoute(app) {
       console.log('======================================')
       return movieApi.findMovieSimilarTo(nlp.entities['movie-name'][0].value)
         .then(function(carouselle) {
+        db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({carouselle})
         res.json({
           replies: carouselle,
         });

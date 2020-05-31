@@ -1,19 +1,5 @@
 const axios = require('axios');
 const config = require('../config');
-const admin = require("firebase-admin");
-
-var serviceAccount = require(config.FIREBASE_PATH);
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://movieadvice-43292.firebaseio.com"
-});
-
-const db = admin.database();
-const test = {
-  test: "asda"
-}
-db.ref('prueba').push(test)
 
 Array.prototype.shuffle = function () {
   for (let i = this.length; i; i--) {
