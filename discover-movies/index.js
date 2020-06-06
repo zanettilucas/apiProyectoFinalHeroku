@@ -18,9 +18,9 @@ function loadMovieRoute(app) {
     console.log('[GET] /discover-movies');
     const conversation = req.body.conversation;
     const nlp = req.body.nlp;
-    console.log('======================================')
+    console.log('==================SKILL====================')
     console.log(`Skill: ${conversation.skill}`)
-    console.log('======================================')
+    console.log('==================USER ID====================')
     console.log(`userId: ${conversation.memory.userId}`)
     console.log('==================JSON REQUEST====================')
     console.log(conversation)
@@ -32,7 +32,10 @@ function loadMovieRoute(app) {
       //búsqueda sin criterios.
       return movieApi.discoverMovie({})
         .then(function(carouselle) {
-          db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({carouselle})
+          if (carouselle[1]) {
+            let arrPeliculas = formatResponse(carouselle[1]["content"]);
+            db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({arrPeliculas})
+          }
           res.json({
             replies: carouselle,
           });
@@ -96,7 +99,10 @@ function loadMovieRoute(app) {
         console.log('======================================')
         return movieApi.discoverMovie({ genreId, isoCode, year, interval })
           .then(function(carouselle) {
-            db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({carouselle})
+            if (carouselle[1]) {
+              let arrPeliculas = formatResponse(carouselle[1]["content"]);
+              db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({arrPeliculas})
+            }
             res.json({
               replies: carouselle,
             });
@@ -110,7 +116,10 @@ function loadMovieRoute(app) {
       console.log('======================================')
       return movieApi.discoverTv({ genreId, isoCode, year, interval })
         .then(function(carouselle) {
-          db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({carouselle})
+          if (carouselle[1]) {
+            let arrPeliculas = formatResponse(carouselle[1]["content"]);
+            db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({arrPeliculas})
+          }
           res.json({
             replies: carouselle,
           });
@@ -125,7 +134,10 @@ function loadMovieRoute(app) {
         console.log('======================================')
         return movieApi.findShowSimilarTo(nlp.entities['movie-name'][0].value)
           .then(function(carouselle) {
-            db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({carouselle})
+            if (carouselle[1]) {
+              let arrPeliculas = formatResponse(carouselle[1]["content"]);
+              db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({arrPeliculas})
+            }
             res.json({
               replies: carouselle,
             });
@@ -139,7 +151,10 @@ function loadMovieRoute(app) {
       console.log('======================================')
       return movieApi.findMovieSimilarTo(nlp.entities['movie-name'][0].value)
         .then(function(carouselle) {
-        db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({carouselle})
+          if (carouselle[1]) {
+            let arrPeliculas =  formatResponse(carouselle[1]["content"]);
+            db.ref('usuarios/' + userId + '/ultimaRecomendacion').set({arrPeliculas})
+          }
         res.json({
           replies: carouselle,
         });
@@ -147,12 +162,36 @@ function loadMovieRoute(app) {
       .catch(function(err) {
         console.error('movieApi::discoverMovie error: ', err);
       });
+    } else if (conversation.skill === 'home') {
+      return movieApi.discoverHome()
+          .then(function(carouselle) {
+            res.json({
+              replies: carouselle,
+            });
+          })
+          .catch(function(err) {
+            console.error('movieApi::discoverMovie error: ', err);
+          });
     } else {
       return res.json({
         replies: [{type: 'text', content: 'No puedo ayudarte con esto :/'}],
       });
     }
   });
+}
+
+function formatResponse(arrPeliculas) {
+  let copyArrPeliculas = [];
+
+  for (let i = 0; i < arrPeliculas.length; i++) {
+    copyArrPeliculas[i] = Object.assign({}, arrPeliculas[i]);
+  }
+
+  for (let i = 0; i < copyArrPeliculas.length; i++) {
+    let pelicula = copyArrPeliculas[i];
+    delete pelicula.buttons;
+  }
+  return copyArrPeliculas
 }
 
 module.exports = loadMovieRoute;

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A backend for your weather bot on Recast.ai",
   "main": "index.js",
-  "author": "pierre-edouard.lieb@sap.com",
   "license": "MIT",
   "scripts": {
     "start": "node index.js"

@@ -110,6 +110,12 @@ const movieDbGetRecommendations = (id, kind, params = {}) => {
 
 }
 
+
+const discoverHome = () => {
+  return moviedbApiCall('movie')
+    .then((response) => serviceResponse(response, 'movie'))
+}
+
 const apiResultToCarousselle = (results, kind) => {
   const cards = results.shuffle()
     .slice(0, 5)
@@ -117,6 +123,7 @@ const apiResultToCarousselle = (results, kind) => {
       title: e.title || e.name,
       subtitle: e.overview,
       imageUrl: `https://image.tmdb.org/t/p/w600_and_h900_bestv2${e.poster_path}`,
+      backgroundUrl: `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${e.backdrop_path}`,
       buttons: [{
         type: 'web_url',
         value: `https://www.themoviedb.org/${kind}/${e.id}`,
@@ -149,9 +156,27 @@ const apiResultToCarousselle = (results, kind) => {
   ];
 }
 
+const serviceResponse = (results, kind) => {
+  const cards = results.shuffle()
+    .slice(0, 6)
+    .map(e => ({
+      title: e.title || e.name,
+      subtitle: e.overview,
+      imageUrl: `https://image.tmdb.org/t/p/w600_and_h900_bestv2${e.poster_path}`,
+      backgroundUrl: `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${e.backdrop_path}`,
+      voteAverage: e.vote_average,
+      releaseDate: e.release_date,
+      type: kind,
+      genreIds: e.genre_ids
+    }))
+
+  return cards;
+}
+
 module.exports = {
   discoverMovie,
   discoverTv,
   findMovieSimilarTo,
   findShowSimilarTo,
+  discoverHome,
 };
