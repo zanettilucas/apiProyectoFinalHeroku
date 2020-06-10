@@ -191,6 +191,8 @@ function formatResponse(arrPeliculas) {
     let pelicula = copyArrPeliculas[i];
     delete pelicula.buttons;
   }
+  console.log("arrPeliculas", arrPeliculas);
+  console.log("copyArrPeliculas", copyArrPeliculas);
   return copyArrPeliculas
 }
 
