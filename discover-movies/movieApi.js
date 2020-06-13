@@ -122,6 +122,7 @@ const apiResultToCarousselle = (results, kind) => {
     .map(e => ({
       title: e.title || e.name,
       subtitle: e.overview,
+      id: e.id,
       imageUrl: `https://image.tmdb.org/t/p/w600_and_h900_bestv2${e.poster_path}`,
       backgroundUrl: `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${e.backdrop_path}`,
       buttons: [{
@@ -162,6 +163,7 @@ const serviceResponse = (results, kind) => {
     .map(e => ({
       title: e.title || e.name,
       subtitle: e.overview,
+      id: e.id,
       imageUrl: `https://image.tmdb.org/t/p/w600_and_h900_bestv2${e.poster_path}`,
       backgroundUrl: `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${e.backdrop_path}`,
       voteAverage: e.vote_average,
