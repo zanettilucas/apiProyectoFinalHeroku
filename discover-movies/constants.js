@@ -2,7 +2,6 @@ const movieGenres = [
   { id: 28, name: 'Accion' },
   { id: 12, name: 'Aventura' },
   { id: 16, name: 'Animacion' },
-  { id: 16, name: 'Animated' },
   { id: 35, name: 'Comedia' },
   { id: 80, name: 'Crimen' },
   { id: 99, name: 'Documental' },
@@ -22,6 +21,7 @@ const movieGenres = [
   { id: 10770, name: 'TV Movie' },
   { id: 53, name: 'Suspenso' },
   { id: 10752, name: 'Belica' },
+  { id: 10752, name: 'Guerra' },
   { id: 37, name: 'Western' },
   { id: 37, name: 'Vaqueros' }
 ];
